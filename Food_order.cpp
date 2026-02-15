@@ -1,6 +1,12 @@
 #include<iostream>
 #include<iomanip>
 using namespace std;
+
+void clearInputBuffer() {
+    cin.clear();
+    cin.ignore(10000, '\n');
+}
+
 class Product{
     int id;
     int price;
@@ -35,7 +41,7 @@ class Cart{
     int get_id(){return prod.getid();}
     int get_price(){return prod.getprice();}
     void displaycart(){
-        cout<<left<<setw(5)<<prod.getid()<<setw(25)<<prod.getname()<<setw(8)<<quant<<"Rs."<<calculatetotal()<<endl;
+        cout<<left<<setw(5)<<prod.getid()<<setw(25)<<prod.getname()<<setw(10)<<quant<<"Rs. "<<calculatetotal()<<endl;
     }
 };
 class Order{
@@ -71,17 +77,21 @@ class Order{
             cout<<"Cart is Empty..\n";
             return;
         }
-        cout<<"\nID\tName\tqty\tprice\n";
+        cout<<"\n"<<left<<setw(5)<<"ID"<<setw(25)<<"Name"<<setw(10)<<"Qty"<<"Price"<<endl;
+        cout<<string(55,'-')<<endl;
         for(int i=0;i<count;i++){
             ct[i].displaycart();
         }
-        cout<<"Total Amount: Rs."<<total<<endl;
+        cout<<string(55,'-')<<endl;
+        cout<<"Total Amount: Rs. "<<total<<endl;
     }
         void checkout()
     {
         if (count == 0)
         {
+            cout<<"\n--------------------------------------------------\n";
             cout << "Cart is Empty!\n";
+            cout<<"--------------------------------------------------\n";
             return;
         }
         cout<<"\n-------------------Itemised Bill---------------------\n";
@@ -99,8 +109,8 @@ class Order{
 
         }
         cout<<"\n----------------------------------------------------\n";
-        cout << "\nGrand Total: " << total << endl;
-         cout<<"\n----------------------------------------------------\n";
+        cout << "Grand Total: " << total << endl;
+         cout<<"----------------------------------------------------\n";
          int time=0;
          for(int i=0;i<count;i++){
             if(ct[i].get_id()==1 || ct[i].get_id()==3 || ct[i].get_id()==5){
@@ -111,7 +121,7 @@ class Order{
             }
          }
          cout<<"Your Order Will Be Ready In "<<time<<" Minutes.\n";
-                 count = 0;
+        count = 0;
         total = 0;
     }
 };
@@ -160,8 +170,12 @@ int main(){
     cout<<"3. Indian Chimnee.\n";
     cout<<"4. Cafe Grills.\n";
     cout<<"5. Checkmate.\n";
-    cout<<"Enter Your choice for Restuarant(0-5): ";
-    cin>>rest;
+    cout<<"Enter Your choice for Restuarant(1-5): ";
+    if(!(cin>>rest)) {
+        clearInputBuffer();
+        cout<<"Invalid input! Please enter a number (1-5).\n";
+        return 0;
+    }
     switch(rest){
         case 1: do{
             cout<<"\n=====Gautom 'O' Dine.=====\n";
@@ -172,7 +186,11 @@ int main(){
             cout<<"5.Checkout.\n";
             cout<<"6.Exit.\n";
             cout<<"Enter your choice: ";
-            cin>>choice;
+            if(!(cin>>choice)) {
+                clearInputBuffer();
+                cout<<"Invalid input! Please enter a number (1-6).\n";
+                continue;
+            }
             switch(choice){
                 case 1:
                 cout<<"\n-----------------Menu-----------------\n";
@@ -206,6 +224,8 @@ int main(){
                 case 6:
                 cout<<"Exiting..";
                 break;
+                default:
+                cout<<"Invalid choice!!.\n";
             }
         }while(choice!=6); break;
         case 2:  do{
@@ -217,7 +237,11 @@ int main(){
             cout<<"5.Checkout.\n";
             cout<<"6.Exit.\n";
             cout<<"Enter your choice: ";
-            cin>>choice;
+            if(!(cin>>choice)) {
+                clearInputBuffer();
+                cout<<"Invalid input! Please enter a number (1-6).\n";
+                continue;
+            }
             switch(choice){
                 case 1:          
                      cout<<"\n-----------------Menu-----------------\n";
@@ -252,6 +276,8 @@ int main(){
                 case 6:
                 cout<<"Exiting...\n";
                 break;
+                default:
+                cout<<"Invalid choice!!.\n";
             }
         }while(choice!=6); break;
         case 3:  do{
@@ -263,7 +289,11 @@ int main(){
             cout<<"5.Checkout.\n";
             cout<<"6.Exit.\n";
             cout<<"Enter your choice: ";
-            cin>>choice;
+            if(!(cin>>choice)) {
+                clearInputBuffer();
+                cout<<"Invalid input! Please enter a number (1-6).\n";
+                continue;
+            }
             switch(choice){
                 case 1:               
                  cout<<"\n-----------------Menu-----------------\n";
@@ -283,7 +313,7 @@ int main(){
                 } 
                 break;
                 case 3:    
-                cout<<"Enter product name to remove: ";
+                cout<<"Enter ID to remove: ";
                 cin>>id;
                 c.removefromcart(id);
                 break;
@@ -297,6 +327,8 @@ int main(){
                 case 6:
                 cout<<"Exiting...\n";
                 break;
+                default:
+                cout<<"Invalid choice!!.\n";
             }
         }while(choice!=6); break;
         case 4:  do{
@@ -308,7 +340,11 @@ int main(){
             cout<<"5.Checkout.\n";
             cout<<"6.Exit.\n";
             cout<<"Enter your choice: ";
-            cin>>choice;
+            if(!(cin>>choice)) {
+                clearInputBuffer();
+                cout<<"Invalid input! Please enter a number (1-6).\n";
+                continue;
+            }
             switch(choice){
                 case 1:            
                     cout<<"\n-----------------Menu-----------------\n";
@@ -328,7 +364,7 @@ int main(){
                     }
                 }
                 break;
-                case 3:cout<<"Enter product name to remove: ";
+                case 3:cout<<"Enter ID to remove: ";
                 cin>>id;
                 c.removefromcart(id);
                 break;
@@ -342,6 +378,8 @@ int main(){
                 case 6:
                 cout<<"Exiting...\n";
                 break;
+                default:
+                cout<<"Invalid choice!!.\n";
             }
         }while(choice!=6); break;
         case 5:  do{
@@ -353,7 +391,11 @@ int main(){
             cout<<"5.Checkout.\n";
             cout<<"6.Exit.\n";
             cout<<"Enter your choice: ";
-            cin>>choice;
+            if(!(cin>>choice)) {
+                clearInputBuffer();
+                cout<<"Invalid input! Please enter a number (1-6).\n";
+                continue;
+            }
             switch(choice){
                 case 1:  
                  cout<<"\n-----------------Menu-----------------\n";
@@ -374,7 +416,7 @@ int main(){
                 }
                 break;
                 case 3:
-                cout<<"Enter product name to remove: ";
+                cout<<"Enter ID to remove: ";
                 cin>>id;
                 c.removefromcart(id);break;
                 case 4:
@@ -387,6 +429,8 @@ int main(){
                 case 6:
                 cout<<"Exiting...\n";
                 break;
+                default:
+                cout<<"Invalid choice!!.\n";
             }
         }while(choice!=6); break;
         default: 
